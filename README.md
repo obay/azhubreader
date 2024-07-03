@@ -24,12 +24,7 @@ scoop install obay/azhubreader
 
 ## Usage
 
-1. Make sure you are logged in to Azure using the Azure CLI.
-2. run `azhubreader` with the required parameters.
-
-### Exmaple
-
-On Linux or macOS:
+### On Linux or macOS
 
 ```bash
 eventhub_name="EntraID-eh"
@@ -42,7 +37,7 @@ key="EBzdTLpH8l+4H7xxxIq5rbFpbOVQNuO/f+AExPxeKGo=" # This is a fake key. Replace
 azhubreader -hub=$eventhub_name -group=$consumer_group -output=$EventHubOutput -namespace=$eventhub_namespace -keyname=$key_name -key=$key
 ```
 
-On Windows:
+### On Windows
 
 ```powershell
 $eventhub_name="EntraID-eh"
@@ -55,7 +50,7 @@ $key="EBzdTLpH8l+4H7xxxIq5rbFpbOVQNuO/f+AExPxeKGo=" # This is a fake key. Replac
 azhubreader -hub $eventhub_name -group $consumer_group -output $EventHubOutput -namespace $eventhub_namespace -keyname $key_name -key $key
 ```
 
-On Docker:
+### On Docker
 
 ```bash
 eventhub_name="EntraID-eh"
@@ -105,4 +100,3 @@ YYYY-MM-DD_HH-MM-SS-Operation_Name.json
 ## Notes
 
 - The application will continue running until manually stopped.
-- Ensure you have the necessary permissions to read from the Event Hub and write to the output directory.
