@@ -18,6 +18,7 @@ brew install azhubreader
 
 ```powershell
 scoop bucket add obay https://github.com/obay/scoop-bucket.git
+scoop update
 scoop install obay/azhubreader
 ```
 
@@ -28,6 +29,8 @@ scoop install obay/azhubreader
 
 ### Exmaple
 
+On Linux or macOS:
+
 ```bash
 eventhub_name="EntraID-eh"
 consumer_group="EntraID-cg"
@@ -37,6 +40,19 @@ key_name="RootManageSharedAccessKey"
 key="EBzdTLpH8l+4H7xxxIq5rbFpbOVQNuO/f+AExPxeKGo=" # This is a fake key. Replace with your own key.
 
 azhubreader -hub=$eventhub_name -group=$consumer_group -output=$EventHubOutput -namespace=$eventhub_namespace -keyname=$key_name -key=$key
+```
+
+On Windows:
+
+```powershell
+$eventhub_name="EntraID-eh"
+$consumer_group="EntraID-cg"
+$eventhub_namespace="EntraID-ns"
+$EventHubOutput="EventHubOutput"
+$key_name="RootManageSharedAccessKey"
+$key="EBzdTLpH8l+4H7xxxIq5rbFpbOVQNuO/f+AExPxeKGo=" # This is a fake key. Replace with your own key.
+
+azhubreader -hub $eventhub_name -group $consumer_group -output $EventHubOutput -namespace $eventhub_namespace -keyname $key_name -key $key
 ```
 
 ### Parameters
