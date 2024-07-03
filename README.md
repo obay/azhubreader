@@ -6,29 +6,27 @@ This command line was created specificly to monitor for users and devices creati
 
 ## Installation
 
-You can install azhubreader on any MacOS or Linux machine with Homebrew installed.
-
-You can install Homebrew using the following command:
+### On Linux & macOS using [Homebrew](https://brew.sh)
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew tap obay/tap
+brew update
+brew install azhubreader
 ```
 
-Once Homebrew is installed, run the following commands to install azhubreader:
+### On Windows using [Scoop](https://scoop.sh)
 
-```bash
-brew tap obay/tap && brew install azhubreader
-```
-
-Confirm the tool is installed by running:
-
-```bash
-azhubreader version
+```powershell
+scoop bucket add obay https://github.com/obay/scoop-bucket.git
+scoop install obay/azhubreader
 ```
 
 ## Usage
 
-Replace the placeholders with your own values and run the following command:
+1. Make sure you are logged in to Azure using the Azure CLI.
+2. run `azhubreader` with the required parameters.
+
+### Exmaple
 
 ```bash
 eventhub_name="EntraID-eh"
