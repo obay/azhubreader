@@ -26,6 +26,8 @@ scoop install obay/azhubreader
 
 ### On Linux or macOS
 
+Replace the values for `eventhub_name`, `consumer_group`, `eventhub_namespace`, `EventHubOutput`, `key_name`, and `key` with your own values.
+
 ```bash
 eventhub_name="EntraID-eh"
 consumer_group="EntraID-cg"
@@ -39,6 +41,8 @@ azhubreader -hub=$eventhub_name -group=$consumer_group -output=$EventHubOutput -
 
 ### On Windows
 
+Replace the values for `eventhub_name`, `consumer_group`, `eventhub_namespace`, `EventHubOutput`, `key_name`, and `key` with your own values.
+
 ```powershell
 $eventhub_name="EntraID-eh"
 $consumer_group="EntraID-cg"
@@ -51,6 +55,8 @@ azhubreader -hub $eventhub_name -group $consumer_group -output $EventHubOutput -
 ```
 
 ### On Docker
+
+Replace the values for `eventhub_name`, `consumer_group`, `eventhub_namespace`, `EventHubOutput`, `key_name`, and `key` with your own values.
 
 ```bash
 eventhub_name="EntraID-eh"
