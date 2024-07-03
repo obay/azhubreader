@@ -37,8 +37,6 @@ changelog:
       - "^docs:"
       - "^test:"
 
-
-
 brews:
   -
     name: azhubreader
@@ -53,6 +51,6 @@ brews:
     license: "MIT"
     repository:
       owner: obay
-      name: azhubreader
+      name: homebrew-tap
       branch: main
     
