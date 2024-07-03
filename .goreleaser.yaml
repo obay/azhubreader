@@ -36,3 +36,24 @@ changelog:
     exclude:
       - "^docs:"
       - "^test:"
+
+
+
+brews:
+  -
+    name: azhubreader
+    url_template: "http://github.com/obay/azhubreader/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    commit_author:
+      name: Obay
+      email: obay@obay.cloud
+    commit_msg_template: "Scoop update for {{ .ProjectName }} version {{ .Tag }}"
+    directory: Formula
+    homepage: "https://github.com/obay/azhubreader"
+    description: "Extract Azure Event Hub messages into JSON files"
+    license: "MIT"
+    repository:
+      owner: obay
+      name: azhubreader
+      branch: main
+      token: "{{ .Env.GITHUB_PERSONAL_AUTH_TOKEN }}"
+    
