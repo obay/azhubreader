@@ -6,7 +6,7 @@ This command line was created specificly to monitor for users and devices creati
 
 ## Installation
 
-You can install rcmt on any MacOS or Linux machine with Homebrew installed.
+You can install azhubreader on any MacOS or Linux machine with Homebrew installed.
 
 You can install Homebrew using the following command:
 
@@ -14,16 +14,16 @@ You can install Homebrew using the following command:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Once Homebrew is installed, run the following commands to install rcmt:
+Once Homebrew is installed, run the following commands to install azhubreader:
 
 ```bash
-brew tap obay/tap && brew install rcmt
+brew tap obay/tap && brew install azhubreader
 ```
 
 Confirm the tool is installed by running:
 
 ```bash
-rcmt version
+azhubreader version
 ```
 
 ## Usage
