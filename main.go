@@ -12,7 +12,7 @@ import (
 	eventhub "github.com/Azure/azure-event-hubs-go"
 )
 
-func ReadEventHub(eventHubName, consumerGroup, outputDirectory, eventHubNamespace, sharedAccessKeyName, sharedAccessKey string) {
+func ReadEventHub(eventHubName, consumerGroup, outputDirectory, eventHubNamespace, sharedAccessKeyName, sharedAccessKey string, monitoredCategories, monitoredOperations []string, filterEvents bool) {
 	eventHubConnectionString := fmt.Sprintf("Endpoint=sb://%s.servicebus.windows.net/;SharedAccessKeyName=%s;SharedAccessKey=%s;EntityPath=%s",
 		eventHubNamespace, sharedAccessKeyName, sharedAccessKey, eventHubName)
 
@@ -26,10 +26,8 @@ func ReadEventHub(eventHubName, consumerGroup, outputDirectory, eventHubNamespac
 	}
 	defer hub.Close(context.Background())
 
-	monitoredCategories := []string{"AuditLogs"}
-	monitoredOperations := []string{"Add user", "Delete user"}
-
 	ctx := context.Background()
+
 	handler := func(ctx context.Context, event *eventhub.Event) error {
 		var jsonNode map[string]interface{}
 		if err := json.Unmarshal(event.Data, &jsonNode); err != nil {
@@ -44,15 +42,15 @@ func ReadEventHub(eventHubName, consumerGroup, outputDirectory, eventHubNamespac
 					operationName, _ := r["operationName"].(string)
 					date, _ := r["time"].(string)
 
-					if category != "" && operationName != "" && date != "" &&
+					if !filterEvents || (category != "" && operationName != "" && date != "" &&
 						contains(monitoredCategories, category) &&
-						contains(monitoredOperations, operationName) {
+						contains(monitoredOperations, operationName)) {
 
 						formattedDate := strings.ReplaceAll(strings.ReplaceAll(strings.ReplaceAll(date, ":", "-"), "T", "_"), "Z", "")
 						fileName := fmt.Sprintf("%s-%s.json", formattedDate, strings.ReplaceAll(operationName, " ", "_"))
 						filePath := filepath.Join(outputDirectory, fileName)
 
-						jsonString, err := json.MarshalIndent(r, "", "  ")
+						jsonString, err := json.MarshalIndent(r, "", " ")
 						if err != nil {
 							fmt.Printf("Error marshaling JSON: %v\n", err)
 							continue
@@ -68,7 +66,6 @@ func ReadEventHub(eventHubName, consumerGroup, outputDirectory, eventHubNamespac
 				}
 			}
 		}
-
 		return nil
 	}
 
@@ -105,16 +102,22 @@ func main() {
 	eventHubNamespace := flag.String("namespace", "", "Event Hub namespace")
 	sharedAccessKeyName := flag.String("keyname", "", "Shared Access Key name")
 	sharedAccessKey := flag.String("key", "", "Shared Access Key")
+	categories := flag.String("categories", "AuditLogs", "Comma-separated list of monitored categories")
+	operations := flag.String("operations", "Add user,Delete user", "Comma-separated list of monitored operations")
+	filterEvents := flag.Bool("filter", true, "Filter events based on monitored categories and operations")
 
 	flag.Parse()
 
 	// Check if all required parameters are provided
 	if *eventHubName == "" || *consumerGroup == "" || *outputDirectory == "" ||
 		*eventHubNamespace == "" || *sharedAccessKeyName == "" || *sharedAccessKey == "" {
-		fmt.Println("All parameters are required.")
+		fmt.Println("All required parameters must be provided.")
 		flag.Usage()
 		os.Exit(1)
 	}
 
-	ReadEventHub(*eventHubName, *consumerGroup, *outputDirectory, *eventHubNamespace, *sharedAccessKeyName, *sharedAccessKey)
+	monitoredCategories := strings.Split(*categories, ",")
+	monitoredOperations := strings.Split(*operations, ",")
+
+	ReadEventHub(*eventHubName, *consumerGroup, *outputDirectory, *eventHubNamespace, *sharedAccessKeyName, *sharedAccessKey, monitoredCategories, monitoredOperations, *filterEvents)
 }
