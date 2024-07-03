@@ -45,7 +45,6 @@ brews:
       name: Obay
       email: obay@obay.cloud
     commit_msg_template: "Scoop update for {{ .ProjectName }} version {{ .Tag }}"
-    directory: Formula
     homepage: "https://github.com/obay/azhubreader"
     description: "Extract Azure Event Hub messages into JSON files"
     license: "MIT"
