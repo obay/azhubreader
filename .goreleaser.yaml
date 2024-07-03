@@ -55,5 +55,4 @@ brews:
       owner: obay
       name: azhubreader
       branch: main
-      token: "{{ .Env.GITHUB_PERSONAL_AUTH_TOKEN }}"
     
