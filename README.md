@@ -55,6 +55,28 @@ $key="EBzdTLpH8l+4H7xxxIq5rbFpbOVQNuO/f+AExPxeKGo=" # This is a fake key. Replac
 azhubreader -hub $eventhub_name -group $consumer_group -output $EventHubOutput -namespace $eventhub_namespace -keyname $key_name -key $key
 ```
 
+On Docker:
+
+```bash
+eventhub_name="EntraID-eh"
+consumer_group="EntraID-cg"
+eventhub_namespace="EntraID-ns"
+EventHubOutput="EventHubOutput"
+key_name="RootManageSharedAccessKey"
+key="EBzdTLpH8l+4H7xxxIq5rbFpbOVQNuO/f+AExPxeKGo=" # This is a fake key. Replace with your own key.
+
+docker run -it --rm \
+  -v $(pwd)/$EventHubOutput:/app/EventHubOutput \
+  xobay/azhubreader:v0.1.7 \
+  ./azhubreader \
+  -hub $eventhub_name \
+  -group $consumer_group \
+  -output /app/EventHubOutput \
+  -namespace $eventhub_namespace \
+  -keyname $key_name \
+  -key $key
+```
+
 ### Parameters
 
 - `-hub`: Event Hub name
