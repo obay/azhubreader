@@ -24,7 +24,7 @@ scoop install obay/azhubreader
 
 ## Usage
 
-### On Linux or macOS
+### On Linux & macOS
 
 Replace the values for `eventhub_name`, `consumer_group`, `eventhub_namespace`, `EventHubOutput`, `key_name`, and `key` with your own values.
 
@@ -86,17 +86,18 @@ docker run -it --rm \
 - `-namespace`: Event Hub namespace
 - `-keyname`: Shared Access Key name
 - `-key`: Shared Access Key
-
-All parameters are required.
+- `-categories`: Comma-separated list of monitored categories (default "AuditLogs") (Optional)
+- `-operations`: Comma-separated list of monitored operations (default "Add user,Delete user") (Optional)
+- `-filter`: Filter events based on monitored categories and operations (default true) (Optional). Setting this to false will write all events to JSON files and will not filter based on categories and operations.
 
 ## Configuration
 
-The application is configured to monitor the following:
+The application is configured to monitor the following by default:
 
 - Categories: "AuditLogs"
 - Operations: "Add user", "Delete user"
 
-To modify these, update the `monitoredCategories` and `monitoredOperations` slices in the `ReadEventHub` function.
+To modify these, update the `categories` and `operations` parameters when running the application.
 
 ## Output
 
